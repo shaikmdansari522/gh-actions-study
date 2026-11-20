@@ -22,4 +22,4 @@ jobs:
               run: npm ci
             
             - name: Run unit Tests
-              run: npm runtest
+              run: npm run test
