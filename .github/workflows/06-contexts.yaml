@@ -9,9 +9,15 @@ on:
                 type: boolean
                 default: false
 
+env:
+    MY_WORKFLOW_VAR: 'workflow'
+    MY_OVERWRITTEN_VAR: 'workflow'
 jobs:
     echo-data:
         runs-on: ubuntu-latest
+        env:
+            MY_JOB_VAR: 'job'
+            MY_OVERWRITTEN_VAR: 'job'
         steps:
             - name: Display Information
               run: |
@@ -26,5 +32,24 @@ jobs:
             - name: Retrieve Variable
               run: |
                 echo "Variable value: ${{ vars.MY_VAR }}"
+            
+            - name: Prine env Variable
+              run: |
+                echo "Workflow Var: ${{ env.MY_WORKFLOW_VAR }}"
+                echo "Overwritten env: ${{ env.MY_OVERWRITTEN_VAR }}"
+            
+            - name: Prine env Variable
+              env:
+                MY_OVERWRITTEN_VAR: 'steps'
+              run: |
+                echo "Workflow Var: ${{ env.MY_WORKFLOW_VAR }}"
+                echo "Overwritten env: ${{ env.MY_OVERWRITTEN_VAR }}"
+    echo-data2:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print Env variables
+              run: |
+                echo "Workflow env: ${{ env.MY_WORKFLOW_VAR }}"
+
 
             
